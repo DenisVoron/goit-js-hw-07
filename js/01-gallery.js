@@ -1,7 +1,92 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+const containerGallery = document.querySelector('.gallery')
+//console.log(containerGallery);
+
+//console.log(createGalleryCard(galleryItems));
+const imgMarkup = createGalleryCard(galleryItems);
+containerGallery.insertAdjacentHTML('beforeend', imgMarkup);
+//createGalleryCard(galleryItems);
+containerGallery.addEventListener('click', onImageContainerClick);
+
+//window.addEventListener('keydown', onEscKeyPress);
+
+let instance;
+
+function createGalleryCard(card) {
+    return card.map(({ preview, original, description }) => {
+        return `
+        <div class="gallery__item">
+          <a class="gallery__link" href="${original}">
+              <img
+                 class="gallery__image"
+                 src="${preview}"
+                 data-source="${original}"
+                 alt="${description}"
+              />
+         </a>
+        </div>
+        `;
+    }).join('');
+}
+
+function onImageContainerClick(evt) {
+    evt.preventDefault();
+    const swatchEl = evt.target;
+
+    const isImageSwatchEl = !swatchEl.classList.contains('gallery__image');
+
+    if (isImageSwatchEl) {
+        return;
+    }
+
+    //console.log(swatchEl.dataset.source);
+
+    const instance = basicLightbox.create(`
+    <img src="${swatchEl.dataset.source}">
+`)
+    instance.show();
+}
+
+/*function onCloseModal() {
+    instance.close()
+}*/
+
+function onEscKeyPress(evt) {
+
+
+    const instance = basicLightbox.create(`
+    <img src="${evt.target.dataset.source}">
+`, {
+        onShow: (instance) => {
+            window.addEventListener('keydown', onEscKeyPress);
+        },
+        onClose: (instance) => {
+            console.log(evt.code);
+            //const ESC_KEY_CODE = 'Escape';
+
+            //const isEscKey = evt.code === ESC_KEY_CODE;
+
+            /*if (evt.code === 'Escape') {
+                instance.close()
+            }*/
+            //window.removeEventListener('keydown', onEscKeyPress);
+        }
+        //instance.close()
+    })
+    //instance.close()
+    /*window.addEventListener('keydown', onEscKeyPress);
+    const ESC_KEY_CODE = 'Escape';
+    const isEscKey = evt.code === ESC_KEY_CODE;*/
+
+    /*instance.close(isEscKey);*/
+    /*if (evt.code === 'Escape') {
+        onCloseModal();
+    }*/
+    //console.log(evt.code);
+}
+
 
 /*<div class="gallery__item">
     <a class="gallery__link" href="large-image.jpg">
