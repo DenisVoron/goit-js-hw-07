@@ -10,9 +10,9 @@ containerGallery.insertAdjacentHTML('beforeend', imgMarkup);
 //createGalleryCard(galleryItems);
 containerGallery.addEventListener('click', onImageContainerClick);
 
-//window.addEventListener('keydown', onEscKeyPress);
+window.addEventListener('keydown', onClickLightbox);
 
-let instance;
+//let instance;
 
 function createGalleryCard(card) {
     return card.map(({ preview, original, description }) => {
@@ -50,31 +50,51 @@ function onImageContainerClick(evt) {
 }
 
 /*function onCloseModal() {
-    instance.close()
+    instance.show()
 }*/
 
-function onEscKeyPress(evt) {
+/*function onEscKeyPress(evt) {
+    console.log(evt.code);
+    const ESC_KEY_CODE = 'Escape';
+
+    const isEscKey = evt.code === ESC_KEY_CODE;
+
+    if (isEscKey) {
+        onCloseModal();
+    }
+}
+
+/*const instance = basicLightbox.close(`
+    <img src="${instance.target.dataset.source}">
+`, {
+    onShow: (instance) => {
+        console.log(instance);
+        window.addEventListener('keydown', onEscKeyPress);
+    },
+    onClose: (instance) => {
+
+        window.removeEventListener('keydown', onEscKeyPress);
+    }
+
+})
+instance.close()*/
 
 
-    const instance = basicLightbox.create(`
+function onClickLightbox(evt) {
+
+    const instance = basicLightbox.show(`
     <img src="${evt.target.dataset.source}">
 `, {
         onShow: (instance) => {
-            window.addEventListener('keydown', onEscKeyPress);
+            console.log(instance);
+            //window.addEventListener('keydown', onEscKeyPress);
         },
         onClose: (instance) => {
-            console.log(evt.code);
-            //const ESC_KEY_CODE = 'Escape';
-
-            //const isEscKey = evt.code === ESC_KEY_CODE;
-
-            /*if (evt.code === 'Escape') {
-                instance.close()
-            }*/
-            //window.removeEventListener('keydown', onEscKeyPress);
+            //window.removeEventListener('keydown', onClickLightbox);
         }
-        //instance.close()
+
     })
+    onClose();
     //instance.close()
     /*window.addEventListener('keydown', onEscKeyPress);
     const ESC_KEY_CODE = 'Escape';
@@ -82,10 +102,10 @@ function onEscKeyPress(evt) {
 
     /*instance.close(isEscKey);*/
     /*if (evt.code === 'Escape') {
-        onCloseModal();
-    }*/
-    //console.log(evt.code);
+        onCloseModal();*/
 }
+instance.close()
+//console.log(evt.code);
 
 
 /*<div class="gallery__item">
