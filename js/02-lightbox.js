@@ -28,12 +28,12 @@ var lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDe
 function onImageContainerClick(evt) {
     evt.preventDefault();
     const swatchEl = evt.target;
-    //console.log(swatchEl);
+    console.log(swatchEl);
 
     const isImageSwatchEl = !swatchEl.classList.contains('gallery__image');
 
     if (isImageSwatchEl) {
         return;
     }
-    //console.log(isImageSwatchEl);
+    console.log(isImageSwatchEl);
 }

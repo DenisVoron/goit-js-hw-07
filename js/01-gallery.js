@@ -35,17 +35,30 @@ function onImageContainerClick(evt) {
     evt.preventDefault();
     const swatchEl = evt.target;
 
-    const isImageSwatchEl = !swatchEl.classList.contains('gallery__image');
+    console.log(swatchEl);
+    const isImageSwatchEl = swatchEl.nodeName !== 'IMG';
 
+    console.log(isImageSwatchEl);
     if (isImageSwatchEl) {
         return;
     }
 
     //console.log(swatchEl.dataset.source);
 
-    const instance = basicLightbox.create(`
+    /*const instance = basicLightbox.create(`
     <img src="${swatchEl.dataset.source}">
-`)
+`)*/
+    const instance = basicLightbox.create(`
+    <div class="modal">
+       <a class="gallery__link" href="${swatchEl.dataset.source}"></a>
+        <a>Close</a>
+    </div>
+`, {
+        onShow: (instance) => {
+            //instance.element().querySelector('a').onclick = instance.close
+        }
+    })
+
     instance.show();
 }
 
