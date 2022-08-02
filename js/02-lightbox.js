@@ -14,10 +14,11 @@ galleryContainer.addEventListener('click', onImageContainerClick);
 
 function createGalleryCard(card) {
     return card.map(({ preview, original, description }) => {
-        return `
-        <a class="gallery__item" href="${original}">
+        return `<li class="gallery__item">
+        <a class="gallery__link" href="${original}">
           <img class="gallery__image" src="${preview}" alt="${description}" />
         </a>
+        </li>
         `;
     }).join('');
 
@@ -26,9 +27,9 @@ function createGalleryCard(card) {
 var lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
 
 function onImageContainerClick(evt) {
-    evt.preventDefault();
+    //evt.preventDefault();
     const swatchEl = evt.target;
-    console.log(swatchEl);
+    //console.log(swatchEl);
 
     const isImageSwatchEl = !swatchEl.classList.contains('gallery__image');
 
